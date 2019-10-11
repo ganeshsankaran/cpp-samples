@@ -1,0 +1,59 @@
+bool searchLinkedList(Node* head, int value) {
+    if(!head) {
+        return false;
+    }
+    else {
+        if(head->value == value) {
+            return true;
+        }
+        else {
+            return searchLinkedList(head->nextNode, value);
+        }
+    }
+}
+
+void freeLinkedListHelper(Node* head) {
+    if(!head) {
+        return;
+    }
+    else {
+        freeLinkedListHelper(head->nextNode);
+        delete head;
+    }
+}
+
+void freeLinkedList(LinkedList* list) {
+    freeLinkedListHelper(list->head);
+    delete list;
+}
+
+Node* deleteNode(Node* head, int value) {
+    if(!head) {
+        return NULL;
+    }
+    else {
+        Node* tmp = deleteNode(head->next, value);
+        if(head->data == value) {
+            delete head;
+            return tmp;
+        }
+        else {
+            head->nextNode = tmp;
+            return head;
+        }
+            
+    }
+}
+
+double minList(Node* head) {
+    if(head->next == NULL) {
+        return head->value;
+    }
+    double min = minList(head->next);
+    if(min < head->value) {
+        return min
+    }
+    else {
+        return head->value;
+    }
+}
